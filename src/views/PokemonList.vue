@@ -28,7 +28,7 @@
         } catch (error) {
             console.error(error, 'Pokemons was not found')
         } finally {
-            if (pokemons) loading.value = false
+            // if (pokemons) loading.value = false
         }
     }
 
