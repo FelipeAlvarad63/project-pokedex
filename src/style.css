@@ -1,0 +1,43 @@
+:root {
+  font-family: Lato, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --color-red-10: #F22539;
+  --color-red-20: #C00E20;
+  --color-white-10: #F9F9F9;
+  --color-white-20: #F5F5F5;
+  --color-gray-10: #E8E8E8;
+  --color-gray-20: #BFBFBF;
+  --color-gray-30: #5E5E5E;
+  --color-dark: #353535;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-white);
+}
+
+
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
