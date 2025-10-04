@@ -32,3 +32,15 @@ body {
   padding: 2rem;
   text-align: center;
 }
+
+.btn-primary {
+  background-color: var(--color-red-10);
+  padding: 11px 20px;
+  color: var(--color-white-10);
+  border: none;
+  border-radius: 60px;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-red-20);
+}
