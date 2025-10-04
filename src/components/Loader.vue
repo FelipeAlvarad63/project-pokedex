@@ -1,7 +1,8 @@
 <template>
     <div class="loader">
-        <span class="spinner"></span>
-        <span class="loading-text">Cargando...</span>
+        <figure class="container__img-loader w-40 h-40 animate-spin">
+            <img class="w-full h-full" src="../assets/img_loader.svg" loading="lazy" alt="img de pokebola girando" />
+        </figure>
     </div>
 </template>
 
@@ -10,33 +11,14 @@
 </script>
 
 <style scoped>
-.loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100px;
-}
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #e0e0e0;
-    border-top: 4px solid #3b82f6;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 10px;
+.container__img-loader {
+    animation: spin 1.5s linear infinite;
 }
 
 @keyframes spin {
     to {
         transform: rotate(360deg);
     }
-}
-
-.loading-text {
-    color: #3b82f6;
-    font-weight: 500;
-    font-size: 1.1rem;
 }
 </style>

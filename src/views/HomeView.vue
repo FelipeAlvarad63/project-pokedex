@@ -5,7 +5,7 @@
 <template>
     <main class="home-page max-w-xl flex flex-col items-center justify-center">
         <figure>
-            <img src="../assets/img_pikachu_cover.svg" alt="imagen de pikachu" />
+            <img src="../assets/img_pikachu_cover.svg" loading="lazy" alt="imagen de pikachu" />
         </figure>
         <div>
             <h1 class="text-dark-10 font-bold text-2xl">Welcome to pokedex</h1>
