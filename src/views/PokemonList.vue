@@ -3,6 +3,7 @@
     <Loader v-if="loading"/>
 
     <main v-else class="home-page max-w-xl flex flex-col items-center justify-center">
+        <SearchBar />
         <h2>Pokemon List</h2>
 
         <p v-for="pokemon in pokemons" :key="pokemon.id">
@@ -15,6 +16,7 @@
     import { ref, onMounted } from 'vue';
     import { pokeApi } from '../services/pokemonService';
     import Loader from '../components/Loader.vue'
+    import SearchBar from '../components/SearchBar.vue';
 
     const loading = ref(true)
     const pokemons = ref([])
@@ -28,7 +30,7 @@
         } catch (error) {
             console.error(error, 'Pokemons was not found')
         } finally {
-            // if (pokemons) loading.value = false
+            if (pokemons) loading.value = false
         }
     }
 

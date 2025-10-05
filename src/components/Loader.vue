@@ -6,10 +6,6 @@
     </div>
 </template>
 
-<script setup>
-// Nenhuma lógica necessária para um loader simples
-</script>
-
 <style scoped>
 
 .container__img-loader {
