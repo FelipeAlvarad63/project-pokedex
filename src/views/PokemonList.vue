@@ -3,8 +3,9 @@
     <Loader v-if="loading"/>
 
     <main v-else class="home-page max-w-xl flex flex-col items-center justify-center">
-        <SearchBar />
-        <h2>Pokemon List</h2>
+        <SearchBar @update:search="onSearch"/>
+
+        <h2 class="text-lg font-bold">Pokemon List</h2>
 
         <p v-for="pokemon in pokemons" :key="pokemon.id">
             {{pokemon.name}}
@@ -20,6 +21,11 @@
 
     const loading = ref(true)
     const pokemons = ref([])
+    const searchTerm = ref('')
+
+    const onSearch = (value) => {
+        searchTerm.value = value
+    }
 
     const fetchPokemons = async () => {
         try {
