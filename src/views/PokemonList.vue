@@ -11,6 +11,13 @@
             :key="pokemon.name"
             :pokemon="pokemon"
             @toggle-Favorite="toggleFavorite(pokemon)"
+            @open-modal="openModal(pokemon.name)"
+        />
+
+        <Modal
+            :show="modalOpen"
+            :pokemon-selected="pokemonSelected"
+            @close="modalOpen = false"
         />
     </main>
 </template>
@@ -21,10 +28,13 @@
     import Loader from '../components/Loader.vue'
     import SearchBar from '../components/SearchBar.vue';
     import ItemList from '../components/ItemList.vue';
+    import Modal from '../components/Modal.vue';
 
     const loading = ref(true)
     const pokemons = ref([])
     const searchTerm = ref('')
+    const modalOpen = ref(false)
+    const pokemonSelected = ref(null)
 
     const onSearch = (value) => {
         searchTerm.value = value
@@ -32,6 +42,10 @@
 
     const toggleFavorite = (pokemon) => {
         pokemon.favorite = !pokemon.favorite
+    }
+
+    const openModal = (pokemon) => {
+        getPokemon(pokemon)
     }
 
     const filteredPokemons = computed(() => {
@@ -43,6 +57,19 @@
             pokemon.name.toLowerCase().includes(searchTerm.value.toLowerCase())
         )
     })
+
+    const getPokemon = async (poke) => {
+        try {
+            const res = await fetch(`${pokeApi}/${poke}`)
+            if (!res.ok) throw new Error('Error get data')
+            const resPokemon = await res.json()
+            pokemonSelected.value = resPokemon
+        } catch (error) {
+            console.error(error)
+        } finally {
+            modalOpen.value = true
+        }
+    }
 
     const fetchPokemons = async () => {
         try {
