@@ -1,34 +1,65 @@
-
 <template>
     <Loader v-if="loading"/>
 
-    <main v-else class="home-page max-w-xl flex flex-col items-center justify-center">
-        <h2>Pokemon List</h2>
+    <main v-else class="home-page max-w-xl w-full flex flex-col items-center justify-center">
+        <SearchBar @update:search="onSearch"/>
 
-        <p v-for="pokemon in pokemons" :key="pokemon.id">
-            {{pokemon.name}}
-        </p>
+        <h2 class="text-lg font-bold mt-4 mb-4">Pokemon List</h2>
+
+        <item-list
+            v-for="pokemon in filteredPokemons"
+            :key="pokemon.name"
+            :pokemon="pokemon"
+            @toggle-Favorite="toggleFavorite(pokemon)"
+        />
     </main>
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { pokeApi } from '../services/pokemonService';
     import Loader from '../components/Loader.vue'
+    import SearchBar from '../components/SearchBar.vue';
+    import ItemList from '../components/ItemList.vue';
 
     const loading = ref(true)
     const pokemons = ref([])
+    const searchTerm = ref('')
+
+    const onSearch = (value) => {
+        searchTerm.value = value
+    }
+
+    const toggleFavorite = (pokemon) => {
+        pokemon.favorite = !pokemon.favorite
+    }
+
+    const filteredPokemons = computed(() => {
+        if (!searchTerm.value) {
+            return pokemons.value
+        }
+
+        return pokemons.value.filter(pokemon =>
+            pokemon.name.toLowerCase().includes(searchTerm.value.toLowerCase())
+        )
+    })
 
     const fetchPokemons = async () => {
         try {
-            const res = await fetch(`${pokeApi}?limit=5000&offset=0`)
+            const res = await fetch(`${pokeApi}`)
             if (!res.ok) throw new Error('Error get data')
             const resPokemons = await res.json()
-            pokemons.value = resPokemons.results
+
+            pokemons.value = resPokemons.results.map(pok => ({
+                name: pok.name,
+                favorite: false,
+                url: pok.url
+            }))
+
         } catch (error) {
             console.error(error, 'Pokemons was not found')
         } finally {
-            // if (pokemons) loading.value = false
+            if (pokemons) loading.value = false
         }
     }
 
