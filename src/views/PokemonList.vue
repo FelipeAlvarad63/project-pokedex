@@ -10,6 +10,7 @@
             v-for="pokemon in filteredPokemons"
             :key="pokemon.name"
             :pokemon="pokemon"
+            @toggle-Favorite="toggleFavorite(pokemon)"
         />
     </main>
 </template>
@@ -29,6 +30,10 @@
         searchTerm.value = value
     }
 
+    const toggleFavorite = (pokemon) => {
+        pokemon.favorite = !pokemon.favorite
+    }
+
     const filteredPokemons = computed(() => {
         if (!searchTerm.value) {
             return pokemons.value
@@ -44,7 +49,13 @@
             const res = await fetch(`${pokeApi}`)
             if (!res.ok) throw new Error('Error get data')
             const resPokemons = await res.json()
-            pokemons.value = resPokemons.results
+
+            pokemons.value = resPokemons.results.map(pok => ({
+                name: pok.name,
+                favorite: false,
+                url: pok.url
+            }))
+
         } catch (error) {
             console.error(error, 'Pokemons was not found')
         } finally {
