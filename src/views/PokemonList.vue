@@ -1,32 +1,30 @@
 <template>
     <Loader v-if="loading" />
 
-    <main v-else class="home-page max-w-xl w-full flex flex-col items-center justify-center">
-        <SearchBar @update:search="onSearch" />
+    <main v-else class="max-w-xl w-full flex flex-col items-center justify-center">
+        <div class="">
+            <SearchBar @update:search="onSearch" />
+        </div>
 
         <h2 class="text-lg font-bold mt-4 mb-4">Pokemon List</h2>
 
-        <item-list 
-            v-for="pokemon in filteredPokemons" 
-            :key="pokemon.name" 
-            :pokemon="pokemon"
-            @toggle-Favorite="toggleFavorite(pokemon)" 
-            @open-modal="openModal(pokemon.name)" />
+        <div>
+            <ItemList 
+                v-if="filteredPokemons.length" 
+                v-for="pokemon in filteredPokemons" 
+                :key="pokemon.name"
+                :pokemon="pokemon" 
+                @toggle-Favorite="toggleFavorite(pokemon)"
+                @open-modal="openModal(pokemon.name)" />
 
-        <Modal 
-            :show="modalOpen" 
-            :pokemon-selected="pokemonSelected" 
-            @close="modalOpen = false" />
+            <ItemsNotFound v-else />
+        </div>
+
+        <Modal :show="modalOpen" :pokemon-selected="pokemonSelected" @close="modalOpen = false" />
 
         <div class="flex gap-4 mt-8 mb-8">
-            <BtnComponent 
-                class="" 
-                text-btn="All" 
-                @click="showFavorites = false" />
-            <BtnComponent 
-                class="text-red-10" 
-                textBtn="Favorites" 
-                @click="showFavorites = true" />
+            <BtnComponent class="" text-btn="All" @click="showFavorites = false" />
+            <BtnComponent class="text-red-10" textBtn="Favorites" @click="showFavorites = true" />
         </div>
     </main>
 </template>
@@ -39,6 +37,7 @@ import SearchBar from '../components/SearchBar.vue';
 import ItemList from '../components/ItemList.vue';
 import Modal from '../components/Modal.vue';
 import BtnComponent from '../components/BtnComponent.vue';
+import ItemsNotFound from '../components/ItemsNotFound.vue';
 
 const loading = ref(true)
 const pokemons = ref([])
