@@ -1,6 +1,6 @@
 
 <template>
-    <div class="flex justify-between items-center w-full p-3 border-gray-200 hover:bg-gray-100">
+    <div @click="openModal" class="flex justify-between items-center w-full p-3 border-gray-200 hover:bg-gray-100">
         <p>{{ pokemon.name }}</p>
 
         <button @click.stop="toggleFavorite">
@@ -18,7 +18,8 @@ defineProps({
     }
 });
 
-const emit = defineEmits(['toggle-favorite'])
+const emit = defineEmits(['toggle-favorite', 'open-modal'])
 
 const toggleFavorite = () => emit('toggle-favorite')
+const openModal = () => emit('open-modal')
 </script>
