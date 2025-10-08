@@ -1,32 +1,34 @@
 <template>
-    <Loader v-if="loading" />
+    <header v-if="!loading" class="sticky top-0">
+        <SearchBar @update:search="onSearch" class="max-w-xl mx-auto px-6 md:px-0 py-6" />
+    </header>
 
-    <main v-else class="max-w-xl w-full flex flex-col items-center justify-center">
-        <div class="">
-            <SearchBar @update:search="onSearch" />
-        </div>
+    <main class="pokemon-list-page">
+        <section v-if="loading" class="flex items-center justify-center h-screen">
+            <Loader />
+        </section>
 
-        <h2 class="text-lg font-bold mt-4 mb-4">Pokemon List</h2>
+        <section v-else class="max-w-xl min-h-[80vh] m-auto px-6 md:px-0">
+            <h2 class="text-lg font-bold mt-4 mb-4">Pokemon List</h2>
 
-        <div>
-            <ItemList 
-                v-if="filteredPokemons.length" 
-                v-for="pokemon in filteredPokemons" 
-                :key="pokemon.name"
-                :pokemon="pokemon" 
-                @toggle-Favorite="toggleFavorite(pokemon)"
-                @open-modal="openModal(pokemon.name)" />
+            <div>
+                <ItemList v-if="filteredPokemons.length" v-for="pokemon in filteredPokemons" :key="pokemon.name"
+                    :pokemon="pokemon" @toggle-Favorite="toggleFavorite(pokemon)"
+                    @open-modal="openModal(pokemon.name)" />
 
-            <ItemsNotFound v-else />
-        </div>
+                <ItemsNotFound v-else />
+            </div>
 
-        <Modal :show="modalOpen" :pokemon-selected="pokemonSelected" @close="modalOpen = false" />
-
-        <div class="flex gap-4 mt-8 mb-8">
-            <BtnComponent class="" text-btn="All" @click="showFavorites = false" />
-            <BtnComponent class="text-red-10" textBtn="Favorites" @click="showFavorites = true" />
-        </div>
+            <Modal :show="modalOpen" :pokemon-selected="pokemonSelected" @close="modalOpen = false" />
+        </section>
     </main>
+
+    <footer class="sticky bottom-0 bg-white w-full mt-auto mb-0 px-6 md:px-0 py-4">
+        <div class="flex gap-4 max-w-xl m-auto">
+            <BtnComponent class="w-full" text-btn="All" @click="showFavorites = false" />
+            <BtnComponent class="w-full text-red-10" textBtn="Favorites" @click="showFavorites = true" />
+        </div>
+    </footer>
 </template>
 
 <script setup>
