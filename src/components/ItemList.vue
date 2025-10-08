@@ -1,6 +1,6 @@
 
 <template>
-    <div @click="openModal" class="flex justify-between items-center w-full p-3 border-gray-200 hover:bg-gray-100">
+    <div @click="openModal" class="bg-white flex justify-between items-center w-full p-3 border-gray-200 rounded-md">
         <p>{{ pokemon.name }}</p>
 
         <button @click.stop="toggleFavorite">

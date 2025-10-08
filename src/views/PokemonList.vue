@@ -9,15 +9,14 @@
         </section>
 
         <section v-else class="max-w-xl min-h-[80vh] m-auto px-6 md:px-0">
-            <h2 class="text-lg font-bold mt-4 mb-4">Pokemon List</h2>
 
-            <div>
-                <ItemList v-if="filteredPokemons.length" v-for="pokemon in filteredPokemons" :key="pokemon.name"
+            <div v-if="filteredPokemons.length" class="flex flex-col gap-[10px] mb-4">
+                <ItemList v-for="pokemon in filteredPokemons" :key="pokemon.name"
                     :pokemon="pokemon" @toggle-Favorite="toggleFavorite(pokemon)"
                     @open-modal="openModal(pokemon.name)" />
-
-                <ItemsNotFound v-else />
             </div>
+
+            <ItemsNotFound v-else />
 
             <Modal :show="modalOpen" :pokemon-selected="pokemonSelected" @close="modalOpen = false" />
         </section>
