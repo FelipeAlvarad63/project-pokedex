@@ -1,30 +1,5 @@
  # Project Pokedex
 
- Descripción
-------------
-
- Proyecto Pokedex es una aplicación web construida con Vue 3 y Vite que muestra una lista de pokémones. Permite buscar y explorar entradas, con una interfaz responsiva y componentes reutilizables. Está pensada como ejercicio de frontend para practicar Vue 3, Vue Router y estilos con TailwindCSS.
-
- Características
-----------------
-
-- Listado de pokémones con paginación (si aplica en la vista).
-- Búsqueda por nombre.
-- Modal o detalle rápido de cada pokémon.
-- Carga y manejo de estados (loader / items no encontrados).
-- Componentes reutilizables (botones, barra de búsqueda, lista, modal, loader).
-
- Tecnologías
------------
-
-- Vue 3
-- Vite
-- Vue Router
-- TailwindCSS
-
- Instalación y ejecución
- # Project Pokedex
-
  Description
 -----------
 
