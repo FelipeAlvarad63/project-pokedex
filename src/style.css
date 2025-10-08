@@ -36,6 +36,12 @@ body {
   border-radius: 60px;
 }
 
-.btn-primary:hover {
-  background-color: var(--color-red-20);
+@media (width >=48rem) {
+  .btn-primary:hover {
+    background-color: var(--color-red-20);
+  }
+}
+
+.btn-primary.disabled {
+  background-color: var(--color-gray-20);
 }

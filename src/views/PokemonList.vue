@@ -24,8 +24,20 @@
 
     <footer class="sticky bottom-0 bg-white w-full mt-auto mb-0 px-6 md:px-0 py-4">
         <div class="flex gap-4 max-w-xl m-auto">
-            <BtnComponent class="w-full" text-btn="All" @click="showFavorites = false" />
-            <BtnComponent class="w-full text-red-10" textBtn="Favorites" @click="showFavorites = true" />
+            <BtnIconComponent 
+                class="w-full"
+                :class="!showFavorites ? '' : 'disabled'" 
+                :src-icon="'/src/assets/icon_list.svg'"
+                :alt-icon="'icon list'"
+                :text-btn="'All'" 
+                @click="showFavorites = false" />
+            <BtnIconComponent 
+                class="w-full text-red-10"
+                :class="!showFavorites ? 'disabled' : ''"
+                :src-icon="'/src/assets/icon_star_white.svg'"
+                :alt-icon="'icon star'"
+                textBtn="Favorites" 
+                @click="showFavorites = true" />
         </div>
     </footer>
 </template>
@@ -37,7 +49,7 @@ import Loader from '../components/Loader.vue'
 import SearchBar from '../components/SearchBar.vue';
 import ItemList from '../components/ItemList.vue';
 import Modal from '../components/Modal.vue';
-import BtnComponent from '../components/BtnComponent.vue';
+import BtnIconComponent from '../components/BtnIconComponent.vue';
 import ItemsNotFound from '../components/ItemsNotFound.vue';
 
 const loading = ref(true)
