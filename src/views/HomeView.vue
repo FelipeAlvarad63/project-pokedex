@@ -1,6 +1,6 @@
 <template>
-    <main class="home-page h-full w-full flex">
-        <div class="max-w-xl m-auto px-6 md:px-0 text-center">
+    <main class="home-page">
+        <section class="flex flex-col h-screen items-center justify-center m-auto max-w-xl md:px-0 px-6 text-center">
             <figure class="w-full max-w-xs mx-auto mb-15">
                 <img
                     src="../assets/img_pikachu_cover.svg"
@@ -16,6 +16,6 @@
             <router-link to="/pokemon-list" class="btn-primary inline-block cursor-pointer">
                 Get started
             </router-link>
-        </div>
+        </section>
     </main>
 </template>
