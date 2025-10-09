@@ -13,7 +13,7 @@
                 <p class="text-gray-30 text-lg font-medium mb-[50px]">The digital encyclopedia created by Professor Oak is an
                     invaluable tool to Trainers in the Pokémon world.</p>
             </div>
-            <router-link to="/pokemon-list" class="btn-primary inline-block cursor-pointer">
+            <router-link to="/pokemon-list" class="bg-red-10 text-white text-lg py-[10px] px-5 rounded-[60px] font-bold hover:bg-red-20 transition-colors duration-200">
                 Get started
             </router-link>
         </section>

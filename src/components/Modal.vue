@@ -2,7 +2,7 @@
     <div v-if="show" class="fixed inset-0 z-3 bg-black/50 flex items-center justify-center">
         <div class="modal-content bg-white overflow-hidden rounded-lg w-full max-w-xs md:max-w-xl">
             <div class="modal-header relative bg-[url('src/assets/img_bg_pokemons.jpg')] bg-cover bg-center p-4">
-                <button @click="$emit('close')" class="absolute right-4 text-blue-500 cursor-pointer font-medium">
+                <button @click="closeModal" class="absolute right-4 text-blue-500 cursor-pointer font-medium">
                     <img src="../assets/icon_close.svg" alt="icon close" class="w-[26] h-[26] hover:opacity-70">
                 </button>
                 <figure class="max-w-[180px] max-h-[180px] m-auto">
@@ -19,9 +19,11 @@
                 <span class="divider"></span>
                 <p class="text-gray-30 text-lg font-bold">Types: <span class="font-medium capitalize">{{ pokemonSelected.types.map(t => t.type.name).join(', ') }}</span></p>
             </div>
-            <div class="modal-footer flex px-6 pb-6">
-                <btn-icon-component class="" text-btn="Share"/>
-                <btn-icon-component class="" :src-icon="pokemonSelected.favorite ? iconStarActive : iconStarDisabled"/>
+            <div class="modal-footer flex justify-between px-6 pb-6">
+                <btn-icon-component type="PRIMARY" custom-class="font-bold cursor-pointer" @click="copyToClipboard(pokemonSelected)">Share to my friends</btn-icon-component>
+                <btn-icon-component type="ICON" custom-class="cursor-pointer" @click="toggleFavorite">
+                    <img :src="pokemonSelected.isFavorite ? iconStarActive : iconStarDisabled" class="w-full h-full" alt="">
+                </btn-icon-component>
             </div>
         </div>
     </div>
@@ -36,9 +38,25 @@ defineProps({
     show: Boolean,
     pokemonSelected: {
         type: Object,
-        required: true
+        required: false
     }
 })
 
-defineEmits(['close'])
+const emits = defineEmits(['close', 'toggle-Favorite'])
+
+const closeModal = () => emits('close')
+const toggleFavorite = () => emits('toggle-Favorite')
+
+const copyToClipboard = async (text) => {
+    if (!navigator.clipboard) {
+        console.error('Clipboard API not supported')
+        return
+    }
+    try {
+        const pokemonInfo = `Name: ${text.name}, Weight: ${text.weight}, Height: ${text.height}, Types: ${text.types.map(t => t.type.name).join(', ')}`
+        await navigator.clipboard.writeText(pokemonInfo)
+    } catch (error) {
+        console.error('Failed to copy: ', error)
+    }
+}
 </script>

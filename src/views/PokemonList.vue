@@ -11,33 +11,30 @@
         <section v-else class="max-w-xl min-h-[80vh] m-auto px-6 md:px-0">
 
             <div v-if="filteredPokemons.length" class="flex flex-col gap-[10px] mb-4">
-                <ItemList v-for="pokemon in filteredPokemons" :key="pokemon.name"
-                    :pokemon="pokemon" @toggle-Favorite="toggleFavorite(pokemon)"
-                    @open-modal="openModal(pokemon.name)" />
+                <ItemList v-for="pokemon in filteredPokemons" :key="pokemon.name" :pokemon="pokemon"
+                    @toggle-Favorite="toggleFavorite(pokemon.name)" @open-modal="openModal(pokemon)" />
             </div>
 
             <ItemsNotFound v-else />
 
-            <Modal :show="modalOpen" :pokemon-selected="pokemonSelected" @close="modalOpen = false" />
+            <Modal :show="modalOpen" :pokemon-selected="pokemonSelected" @toggle-Favorite="toggleFavorite(pokemonSelected.name)" @close="modalOpen = false" />
         </section>
     </main>
 
     <footer class="sticky bottom-0 bg-white w-full mt-auto mb-0 px-6 md:px-0 py-4">
         <div class="flex gap-4 max-w-xl m-auto">
             <BtnIconComponent
-                class="w-full"
-                :class="!showFavorites ? '' : 'disabled'"
-                :src-icon="'/src/assets/icon_list.svg'"
-                :alt-icon="'icon list'"
-                :text-btn="'All'"
-                @click="showFavorites = false" />
+                :custom-class="[!showFavorites ? '' : 'bg-gray-20!', 'flex items-center justify-center gap-2 font-bold w-full cursor-pointer py-[10px]']"
+                @click="showFavorites = false">
+                <img src="/src/assets/icon_list.svg" alt="icon list" />
+                All
+            </BtnIconComponent>
             <BtnIconComponent
-                class="w-full text-red-10"
-                :class="!showFavorites ? 'disabled' : ''"
-                :src-icon="'/src/assets/icon_star_white.svg'"
-                :alt-icon="'icon star'"
-                text-btn="Favorites"
-                @click="showFavorites = true" />
+                :custom-class="[showFavorites ? '' : 'bg-gray-20!', 'flex items-center justify-center gap-2 font-bold w-full cursor-pointer py-[10px]']"
+                @click="showFavorites = true">
+                <img src="/src/assets/icon_star_white.svg" alt="icon star white" />
+                Favorites
+            </BtnIconComponent>
         </div>
     </footer>
 </template>
@@ -63,8 +60,18 @@ const onSearch = (value) => {
     searchTerm.value = value
 }
 
-const toggleFavorite = (pokemon) => {
-    pokemon.favorite = !pokemon.favorite
+const toggleFavorite = (pokemonName) => {
+  if (!pokemonName) return
+
+  const pokemon = pokemons.value.find(p => p.name === pokemonName)
+  
+  if (!pokemon) return
+
+  pokemon.favorite = !pokemon.favorite
+
+  if (pokemonSelected.value?.name === pokemonName) {
+    pokemonSelected.value.isFavorite = pokemon.favorite
+  }
 }
 
 const openModal = (pokemon) => {
@@ -89,10 +96,13 @@ const filteredPokemons = computed(() => {
 
 const getPokemon = async (poke) => {
     try {
-        const res = await fetch(`${pokeApi}/${poke}`)
+        const res = await fetch(`${pokeApi}/${poke.name}`)
         if (!res.ok) throw new Error('Error get data')
         const resPokemon = await res.json()
         pokemonSelected.value = resPokemon
+        pokemonSelected.value.isFavorite = poke.favorite
+
+
     } catch (error) {
         console.error(error)
     } finally {
