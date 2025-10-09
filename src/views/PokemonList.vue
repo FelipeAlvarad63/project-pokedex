@@ -8,7 +8,7 @@
             <Loader />
         </section>
 
-        <section v-else class="max-w-xl min-h-[80vh] m-auto px-6 md:px-0">
+        <section v-else class="max-w-xl min-h-[87vh] m-auto px-6 md:px-0">
 
             <div v-if="filteredPokemons.length" class="flex flex-col gap-[10px] mb-4">
                 <ItemList v-for="pokemon in filteredPokemons" :key="pokemon.name" :pokemon="pokemon"
@@ -21,7 +21,7 @@
         </section>
     </main>
 
-    <footer class="sticky bottom-0 bg-white w-full mt-auto mb-0 px-6 md:px-0 py-4">
+    <footer v-if="!loading" class="sticky bottom-0 bg-white w-full mt-auto mb-0 px-6 md:px-0 py-4">
         <div class="flex gap-4 max-w-xl m-auto">
             <BtnIconComponent
                 :custom-class="[!showFavorites ? '' : 'bg-gray-20!', 'flex items-center justify-center gap-2 font-bold w-full cursor-pointer py-[10px]']"
@@ -64,7 +64,7 @@ const toggleFavorite = (pokemonName) => {
   if (!pokemonName) return
 
   const pokemon = pokemons.value.find(p => p.name === pokemonName)
-  
+
   if (!pokemon) return
 
   pokemon.favorite = !pokemon.favorite
@@ -112,7 +112,7 @@ const getPokemon = async (poke) => {
 
 const fetchPokemons = async () => {
     try {
-        const res = await fetch(`${pokeApi}`)
+        const res = await fetch(`${pokeApi}?limit=5000&offset=0`)
         if (!res.ok) throw new Error('Error get data')
         const resPokemons = await res.json()
 
