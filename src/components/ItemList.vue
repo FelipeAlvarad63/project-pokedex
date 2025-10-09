@@ -1,7 +1,7 @@
 
 <template>
-    <div @click="openModal" class="flex justify-between items-center w-full p-3 border-gray-200 hover:bg-gray-100">
-        <p>{{ pokemon.name }}</p>
+    <div @click="openModal" class="bg-white flex justify-between items-center w-full p-3 border-gray-200 rounded-md">
+        <p class="text-[22px] text-dark-10 capitalize font-medium">{{ pokemon.name }}</p>
 
         <button @click.stop="toggleFavorite">
             <img v-if="!pokemon.favorite" src="../assets/img_star_disabled.svg" alt="imagen de estrella para favoritos" />
@@ -11,6 +11,7 @@
 </template>
 
 <script setup>
+
 defineProps({
     pokemon: {
         type: Object,
