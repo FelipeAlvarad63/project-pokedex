@@ -1,7 +1,7 @@
 <template>
     <button class="btn-primary cursor-pointer flex items-center justify-center gap-2">
-        <img :src="srcIcon" :alt="altIcon">
-        {{ textBtn }}
+        <img v-if="srcIcon" :src="srcIcon" :alt="altIcon">
+        <p v-if="textBtn">{{ textBtn }}</p>
     </button>
 </template>
 
@@ -10,14 +10,12 @@
 defineProps({
     textBtn: {
         type: String,
-        required: true
+        required: false
     },
-
     srcIcon: {
         type: String,
         required: false
     },
-
     altIcon: {
         type: String,
         required: false
