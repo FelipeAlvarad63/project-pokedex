@@ -21,8 +21,8 @@
             </div>
             <div class="modal-footer flex justify-between px-6 pb-6">
                 <btn-icon-component type="PRIMARY" custom-class="font-bold cursor-pointer" @click="copyToClipboard(pokemonSelected)">Share to my friends</btn-icon-component>
-                <btn-icon-component type="ICON" custom-class="cursor-pointer" @click="toggleFavorite">
-                    <img :src="pokemonSelected.isFavorite ? iconStarActive : iconStarDisabled" class="w-full h-full" alt="">
+                <btn-icon-component type="ICON" custom-class="cursor-pointer hover:opacity-70" @click="toggleFavorite">
+                    <img :src="pokemonSelected.isFavorite ? iconStarActive : iconStarDisabled" class="w-full h-full" alt="Icono de estrella para favoritos">
                 </btn-icon-component>
             </div>
         </div>
