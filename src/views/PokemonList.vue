@@ -10,6 +10,8 @@
 
         <section v-else class="max-w-xl min-h-[87vh] m-auto px-6 md:px-0">
 
+
+
             <div v-if="filteredPokemons.length" class="flex flex-col gap-[10px] mb-4">
                 <ItemList v-for="pokemon in filteredPokemons" :key="pokemon.name" :pokemon="pokemon"
                     @toggle-Favorite="toggleFavorite(pokemon.name)" @open-modal="openModal(pokemon)" />
@@ -40,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { pokeApi } from '../services/pokemonService';
 import Loader from '../components/Loader.vue'
 import SearchBar from '../components/SearchBar.vue';
@@ -55,6 +57,7 @@ const searchTerm = ref('')
 const modalOpen = ref(false)
 const pokemonSelected = ref(null)
 const showFavorites = ref(false)
+const results = ref([])
 
 const onSearch = (value) => {
     searchTerm.value = value
@@ -77,6 +80,27 @@ const toggleFavorite = (pokemonName) => {
 const openModal = (pokemon) => {
     getPokemon(pokemon)
 }
+
+watch(searchTerm, async (newSearchTerm) => {
+    if (!newSearchTerm) {
+        results.value = []
+        return
+    }
+
+    clearTimeout(window.searchTimeout)
+    window.searchTimeout = setTimeout( async () => {
+        try {
+            console.log('Searching for:', searchTerm.value)
+            const res = await fetch(`${pokeApi}/${searchTerm.value}`)
+            if (!res.ok) throw new Error('Error get data')
+
+
+            console.log('Search executed for:', res)
+        } catch (error) {
+            console.error(error)
+        }
+    }, 400)
+})
 
 const filteredPokemons = computed(() => {
     let filtered = pokemons.value
@@ -112,7 +136,7 @@ const getPokemon = async (poke) => {
 
 const fetchPokemons = async () => {
     try {
-        const res = await fetch(`${pokeApi}?limit=5000&offset=0`)
+        const res = await fetch(`${pokeApi}`)
         if (!res.ok) throw new Error('Error get data')
         const resPokemons = await res.json()
 
