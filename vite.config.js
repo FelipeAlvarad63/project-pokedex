@@ -10,5 +10,5 @@ export default defineConfig({
     vueDevTools(),
     tailwindcss()
   ],
-  base: 'https://github.com/FelipeAlvarad63/project-pokedex'
+  base: '/project-pokedex'
 })
