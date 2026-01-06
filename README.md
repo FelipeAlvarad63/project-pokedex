@@ -70,4 +70,4 @@ FelipeAlvarad63
 Licencia
 --------
 
-Este repositorio está disponible bajo la licencia MIT (ajusta si usas otra).
+Este repositorio está disponible bajo la licencia MIT.
