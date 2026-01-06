@@ -16,7 +16,7 @@ Finalmente, tras completar la lógica, pasé a la fase de estilos. Gracias a Tai
  Características
 ----------------
 
-- Listado de pokémones con paginación (si aplica en la vista).
+- Listado de pokémones.
 - Búsqueda por nombre.
 - Modal o detalle rápido de cada pokémon.
 - Carga y manejo de estados (loader / items no encontrados).
