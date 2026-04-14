@@ -1,17 +1,8 @@
  # Project Pokedex
 
- Analisis para implementación
------------
-Al ser una prueba técnica enfocada en Vue, elegí Vue 3 como base y lo creé con Vite, ya que considero que ofrece un entorno de desarrollo más rápido y óptimo.
-Primero realicé un análisis sobre cómo debía funcionar la aplicación: las interacciones del usuario, las funcionalidades principales y las tecnologías necesarias.
-
-Al revisar el diseño, noté que existían diferentes vistas, por lo que al tratarse de una SPA, decidí utilizar Vue Router para gestionarlas.
-Para los estilos opté por TailwindCSS, ya que trabajar con clases utilitarias me resulta muy cómodo y eficiente al crear componentes modulares.
-
-Una vez instaladas las herramientas, comencé a desarrollar la lógica y las funcionalidades de la aplicación.
-Al identificar elementos repetidos, opté por crear componentes reutilizables, lo que me permitió implementar las funciones de manera más organizada y mantener un código más limpio.
-
-Finalmente, tras completar la lógica, pasé a la fase de estilos. Gracias a Tailwind y a la componentización de la app, la implementación del diseño resultó mucho más ágil y sencilla.
+ Descripción
+ ---------------
+ App web desarrollada con vite y vue 3, que permite buscar, listar y marcar como favoritos diferentes pokemons, así como visualizar las caracteristicas de cada uno.
 
  Características
 ----------------
